@@ -1,17 +1,13 @@
-FROM ubi8/ubi 
+FROM centos:8
 LABEL maintainer="admin@idwrx.com"
 LABEL description="Puppet server"
 
-ENV YUM_CMD="dnf -y --disableplugin=subscription-manager"
-
-RUN $YUM_CMD clean all
-RUN $YUM_CMD update
-RUN $YUM_CMD autoremove
-RUN $YUM_CMD install https://yum.puppetlabs.com/puppet-release-el-8.noarch.rpm
-RUN $YUM_CMD --nodocs install puppetserver-6.8.0-1.el8
-RUN $YUM_CMD clean all
+RUN dnf -y clean all && dnf -y update && dnf -y autoremove && dnf -y clean all
+RUN dnf -y install https://yum.puppetlabs.com/puppet-release-el-8.noarch.rpm
+RUN dnf -y install puppetserver-6.8.0-1.el8
 
 EXPOSE 8140/tcp
+
 
 VOLUME ["/etc/puppetlabs", "/opt/puppetlabs/server/data/puppetserver", "/var/log/puppetlabs/puppetserver"]
 
