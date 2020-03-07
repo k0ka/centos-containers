@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi 
+FROM ubi8/ubi 
 LABEL maintainer="admin@idwrx.com"
 LABEL description="Puppet server"
 
