@@ -10,6 +10,9 @@ LABEL \
     description="${DESCRIPTION}" \
     name="idwrx/puppet-server"
 
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r puppet && useradd -r -g puppet puppet
+
 RUN	dnf -y clean all &&\
 	dnf -y update && \
 	dnf -y autoremove && \

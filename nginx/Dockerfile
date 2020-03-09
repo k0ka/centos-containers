@@ -13,6 +13,10 @@ LABEL maintainer="admin@idwrx.com" \
 	description="${DESCRIPTION}" \
 	name="idwrx/nginx"
 
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r nginx && useradd -r -g nginx nginx
+
+
 RUN	dnf -y clean all && \
 	dnf -y update && \
 	dnf -y autoremove && \
