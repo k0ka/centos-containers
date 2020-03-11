@@ -16,9 +16,9 @@ RUN groupadd -r puppet && useradd -r -g puppet puppet
 RUN	dnf -y clean all &&\
 	dnf -y update && \
 	dnf -y autoremove && \
-	dnf -y clean all && \
 	dnf -y install https://yum.puppetlabs.com/puppet-release-el-8.noarch.rpm && \
-	dnf -y install puppetserver-${PUPPET_VERSION}.el8
+	dnf -y install puppetserver-${PUPPET_VERSION}.el8 && \
+	dnf -y clean all 
 
 EXPOSE 8140/tcp
 
