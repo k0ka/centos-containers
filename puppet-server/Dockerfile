@@ -14,7 +14,11 @@ LABEL \
 RUN groupadd -r puppet && useradd -r -g puppet puppet
 
 RUN	dnf -y clean all &&\
-	dnf -y update && \
+    dnf -y --nodoc --setopt=install_weak_deps=false update && \
+    dnf -y erase acl bind-export-libs cpio dhcp-client dhcp-common dhcp-libs \
+        ethtool findutils hostname ipcalc iproute iputils kexec-tools \
+        less lzo pkgconf pkgconf-m4 procps-ng shadow-utils snappy squashfs-tools \
+        vim-minimal xz && \
 	dnf -y autoremove && \
 	dnf -y install https://yum.puppetlabs.com/puppet-release-el-8.noarch.rpm && \
 	dnf -y install puppetserver-${PUPPET_VERSION}.el8 && \

@@ -18,7 +18,11 @@ RUN groupadd -r nginx && useradd -r -g nginx nginx
 
 
 RUN	dnf -y clean all && \
-	dnf -y update && \
+    dnf -y --nodoc --setopt=install_weak_deps=false update && \
+    dnf -y erase acl bind-export-libs cpio dhcp-client dhcp-common dhcp-libs \
+        ethtool findutils hostname ipcalc iproute iputils kexec-tools \
+        less lzo pkgconf pkgconf-m4 procps-ng shadow-utils snappy squashfs-tools \
+        vim-minimal xz && \
 	dnf -y autoremove && \
 	dnf -y module enable nginx:$NGINX_VERSION && \
 	dnf -y install --setopt=tsflags=nodocs nginx && \
