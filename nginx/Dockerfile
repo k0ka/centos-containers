@@ -1,6 +1,8 @@
 FROM centos:8 
 
-ENV NGINX_VERSION=1.16 \
+ENV USER_ID=900 \
+	GROUP_ID=900 \
+	NGINX_VERSION=1.16 \
 	SUMMARY="Platform for running nginx $NGINX_VERSION" \
 	DESCRIPTION="Nginx is a web server and a reverse proxy server for HTTP, SMTP, POP3 and IMAP \
 protocols, with a strong focus on high concurrency, performance and low memory usage. The container \
@@ -14,7 +16,7 @@ LABEL maintainer="admin@idwrx.com" \
 	name="idwrx/nginx"
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r nginx && useradd -r -g nginx nginx
+RUN groupadd -r -g $GROUP_ID nginx && useradd -r -g nginx -u $USER_ID nginx
 
 
 RUN	dnf -y clean all && \
@@ -26,11 +28,12 @@ RUN	dnf -y clean all && \
 	dnf -y autoremove && \
 	dnf -y module enable nginx:$NGINX_VERSION && \
 	dnf -y install --setopt=tsflags=nodocs nginx && \
-	dnf -y clean all 
+	dnf -y clean all && \
+	chown nginx:nginx /run /var/log/nginx 
 	
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80/tcp
-
+EXPOSE 8080/tcp
 
 VOLUME ["/etc/nginx", "/var/log/nginx"]
 USER nginx
