@@ -33,5 +33,6 @@ EXPOSE 80/tcp
 
 
 VOLUME ["/etc/nginx", "/var/log/nginx"]
+USER nginx
 
-CMD ["/usr/sbin/nginx", "-g", "daemonf off;"]
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
