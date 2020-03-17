@@ -15,10 +15,7 @@ RUN groupadd -r -g 27 mysql && useradd -r -g mysql -u 27 mysql
 
 RUN	dnf -y clean all && \
 	dnf -y --nodoc --setopt=install_weak_deps=false update && \
-	dnf -y erase acl bind-export-libs cpio dhcp-client dhcp-common dhcp-libs \
-		ethtool findutils hostname ipcalc iproute iputils kexec-tools \
-		less lzo pkgconf pkgconf-m4 procps-ng shadow-utils snappy squashfs-tools \
-		vim-minimal xz && \
+	dnf -y erase kexec-tools squashfs-tools && \
 	dnf -y autoremove && \
 	dnf -y install --setopt=tsflags=nodocs mariadb-server && \
 	dnf -y clean all 
