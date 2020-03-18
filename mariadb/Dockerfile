@@ -30,7 +30,6 @@ RUN chown 27:27 /var/lib/mysql
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 3306/tcp
-VOLUME ["/etc/my.cnf.d", "/var/lib/mysql"]
 
 USER 27
 

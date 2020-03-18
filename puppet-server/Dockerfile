@@ -27,6 +27,4 @@ RUN	dnf -y clean all &&\
 EXPOSE 8140/tcp
 
 
-VOLUME ["/etc/puppetlabs", "/opt/puppetlabs/server/data/puppetserver", "/var/log/puppetlabs/puppetserver"]
-
 CMD ["/opt/puppetlabs/bin/puppetserver", "foreground"]

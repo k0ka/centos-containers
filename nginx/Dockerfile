@@ -35,7 +35,6 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 8080/tcp
 
-VOLUME ["/etc/nginx", "/var/log/nginx"]
 USER nginx
 
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
